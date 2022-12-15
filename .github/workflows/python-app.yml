@@ -42,6 +42,7 @@ jobs:
   docs: # this does not have to be called build or test -> can have more descriptive name
 
     runs-on: ubuntu-latest # defines the operating system (can be windows or whatever else, also a combination (see above)
+    needs: test # run only if tests pass
     
     steps: # each dash is one step 
     - uses: actions/checkout@v3 # clones my repo basically
