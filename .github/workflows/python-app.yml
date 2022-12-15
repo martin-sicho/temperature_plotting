@@ -18,7 +18,7 @@ jobs:
   test: # this does not have to be called build or test -> can have more descriptive name
     strategy: # this is how we test multiple oses
       matrix:
-        os: [windows-latest, ubuntu-latest, macos-latest] # we will run all combinations
+        os: [windows-latest, ubuntu-latest, macos-latest] # we will run all combinations 
         pt_version: ["3.9", "3.10"]
       fail-fast: false # always run all options -> do not cancel everything if one fails
 
@@ -41,3 +41,32 @@ jobs:
       shell: bash
       run: |
         PYTHONPATH=. pytest
+        
+  docs: # this does not have to be called build or test -> can have more descriptive name
+
+    runs-on: ubuntu-latest # defines the operating system (can be windows or whatever else, also a combination (see above)
+    
+    steps: # each dash is one step 
+    - uses: actions/checkout@v3 # clones my repo basically
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10" # quotes important in the list
+    - name: Install dependencies
+      shell: bash # fixes an issue when we run on windows
+      run: | # the bar means i can use multiple commands on multiple lines below
+        python -m pip install --upgrade pip
+        pip install pytest
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    - name: Build docs
+      shell: bash
+      run: |
+        export PYTHONPATH=`pwd`
+        sphinx-build doc _build
+    - name: Publish docs
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        publish_branch: gh-pages
+        publish_dir: _build
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        
