@@ -15,7 +15,7 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  build: # this does not have to be called build -> can have more descriptive name
 
     runs-on: ubuntu-latest # defines the operating system (can be windows or whatever else, also a combination with ne file is possible)
 
