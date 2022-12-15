@@ -15,10 +15,11 @@ permissions:
   contents: read
 
 jobs:
-  build: # this does not have to be called build -> can have more descriptive name
+  test: # this does not have to be called build or test -> can have more descriptive name
     strategy: # this is how we test multiple oses
       matrix:
-        os: [windows-latest, ubuntu-latest, macos-latest]
+        os: [windows-latest, ubuntu-latest, macos-latest] # we will run all combinations
+        pt_version: ["3.9", "3.10"]
       fail-fast: false # always run all options -> do not cancel everything if one fails
 
 #     runs-on: ubuntu-latest # defines the operating system (can be windows or whatever else, also a combination (see above)
@@ -26,10 +27,10 @@ jobs:
 
     steps: # each dash is one step 
     - uses: actions/checkout@v3 # clones my repo basically
-    - name: Set up Python 3.10
+    - name: Set up Python ${{ matrix.os }}
       uses: actions/setup-python@v3
       with:
-        python-version: "3.10" # quotes important
+        python-version: ${{ matrix.os }} # quotes important in the list
     - name: Install dependencies
       shell: bash # fixes an issue when we run on windows
       run: |
