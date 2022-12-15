@@ -30,7 +30,7 @@ jobs:
     - name: Set up Python ${{ matrix.os }}
       uses: actions/setup-python@v3
       with:
-        python-version: ${{ matrix.os }} # quotes important in the list
+        python-version: ${{ matrix.pt_version }} # quotes important in the list
     - name: Install dependencies
       shell: bash # fixes an issue when we run on windows
       run: |
