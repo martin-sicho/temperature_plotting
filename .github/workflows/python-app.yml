@@ -11,9 +11,6 @@ on:
   pull_request:
     branches: [ "main" ]
 
-permissions:
-  contents: read
-
 jobs:
   test: # this does not have to be called build or test -> can have more descriptive name
     strategy: # this is how we test multiple oses
