@@ -33,7 +33,7 @@ jobs:
         python-version: ${{ matrix.pt_version }} # quotes important in the list
     - name: Install dependencies
       shell: bash # fixes an issue when we run on windows
-      run: |
+      run: | # the bar means i can use multiple commands on multiple lines below
         python -m pip install --upgrade pip
         pip install pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
