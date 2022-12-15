@@ -16,8 +16,13 @@ permissions:
 
 jobs:
   build: # this does not have to be called build -> can have more descriptive name
+    strategy: # this is how we test multiple oses
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+      fail-fast: false # always run all options -> do not cancel everything if one fails
 
-    runs-on: ubuntu-latest # defines the operating system (can be windows or whatever else, also a combination with ne file is possible)
+#     runs-on: ubuntu-latest # defines the operating system (can be windows or whatever else, also a combination (see above)
+    runs-on: ${{ matrix.os }} # names in matrix (like os here) are variables that we can use in the file to replace values
 
     steps: # each dash is one step 
     - uses: actions/checkout@v3 # clones my repo basically
